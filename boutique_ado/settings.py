@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,7 +24,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-&l&njlj*qq!aqv$hbx94k$bcc43-c0gbf@s_p2xrlmb%y&89__'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
+#'DEBUG' in os.environ
 
 ALLOWED_HOSTS = ['8000-elvisthegre-boutiqueado-pztiygkg456.ws-eu111.gitpod.io']
 
@@ -37,6 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # The following apps are required:
+    #we copied start
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    # Optional -- requires install using `django-allauth[socialacocunt]`.
+    'allauth.socialaccount', # copied end
 ]
 
 MIDDLEWARE = [
@@ -59,13 +68,34 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
-                'django.template.context_processors.request',
+                'django.template.context_processors.request', # required by allauth
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
         },
     },
 ]
+
+# we added this
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by email
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+SITE_ID = 1
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email' # tells allauth that we want to allow authentication using either usernames or emails.
+ACCOUNT_EMAIL_REQUIRED = True # Email is required to register
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory' # Email is mandatory so we know users are using a real email.
+ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True # And they're gonna be required to enter their email twice on the registration page
+ACCOUNT_USERNAME_MIN_LENGTH = 4 # setting a minimum username length of four characters.
+LOGIN_URL = '/accounts/login/' # specifying a login url
+LOGIN_REDIRECT_URL = '/' # And a url to redirect back to after logging in.
 
 WSGI_APPLICATION = 'boutique_ado.wsgi.application'
 
