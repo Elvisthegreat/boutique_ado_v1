@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-&l&njlj*qq!aqv$hbx94k$bcc43-c0gbf@s_p2xrlmb%y&89__'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 #'DEBUG' in os.environ
 
 ALLOWED_HOSTS = ['8000-elvisthegre-boutiqueado-pztiygkg456.ws-eu111.gitpod.io']
@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'allauth.account',
     # Optional -- requires install using `django-allauth[socialacocunt]`.
     'allauth.socialaccount', # copied end
+    'home',
 ]
 
 MIDDLEWARE = [
@@ -63,7 +64,10 @@ ROOT_URLCONF = 'boutique_ado.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+            os.path.join(BASE_DIR, 'templates', 'allauth'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
