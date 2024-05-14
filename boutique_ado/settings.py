@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-&l&njlj*qq!aqv$hbx94k$bcc43-c0gbf@s_p2xrlmb%y&89__'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 #'DEBUG' in os.environ
 
 ALLOWED_HOSTS = ['8000-elvisthegre-boutiqueado-pztiygkg456.ws-eu111.gitpod.io']
@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # The following apps are required:
-    #we copied start
+    # we copied start
     'django.contrib.sites',
     'allauth',
     'allauth.account',
