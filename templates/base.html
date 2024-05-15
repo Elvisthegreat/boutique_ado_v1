@@ -43,7 +43,7 @@
 	<!--container-fluid and fixed-top to ensure that it sticks to the top of the page.-->
 	<header class="container-fluid fixed-top">
 		<!--single row and 3 columns stack vertically on everything except large and extra-large screens-->
-		<div class="row">
+		<div id="topnav" class="row bg-white pg-lg-2 d-none d-lg-flex">
 			<!--my-auto py-1 and py-lg-0 vertically centred with a bit of top and bottom padding on smaller screens.-->
 			<!--text-center text-lg-left  the logo should be centred by default. But left-aligned on large and extra-large screens.-->
 			<div class="col-12 col-lg-4 my-auto py-1 py-lg-0 text-center text-lg-left">
@@ -52,7 +52,7 @@
 				</a>
 			</div>
 			<div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
-				<form method="GET" action="{% url 'products' %}">
+				<form method="GET" action="">
                     <div class="input-group w-100">
                         <input class="form-control border border-black rounded-0" type="text" name="q" placeholder="Search our site">
                         <div class="input-group-append">
