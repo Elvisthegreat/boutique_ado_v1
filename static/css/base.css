@@ -62,6 +62,7 @@ unless we manually change it. */
 /* -------------------------------- Media Queries */
 
 /* Slightly larger container on xl screens */
+/* widen the default bootstrap container class on extra-large screen */
 @media (min-width: 1200px) {
   .container {
     max-width: 80%;
