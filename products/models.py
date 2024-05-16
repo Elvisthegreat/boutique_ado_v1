@@ -2,6 +2,13 @@ from django.db import models
 
 # Create your models here.
 class Category(models.Model):
+
+    """We can fix the spelling issue on the category model with meta class
+       by adding a special metaclass to the model itself because
+       django added 's' to the Categorys like this."""
+    class Meta:
+        verbose_name_plural = 'Categories'
+
     name = models.CharField(max_length=254)
     friendly_name = models.CharField(max_length=254, null=True, blank=True)
 
