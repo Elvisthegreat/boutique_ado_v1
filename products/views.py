@@ -10,9 +10,16 @@ def all_products(request):
 
     products = Product.objects.all()
     query = None
+    category = None
 
-    "Handling the search query"
     if request.GET:
+
+        """Handling a specific category in our main_nav.html"""
+        if 'category' in request.GET:
+            categories = request.GET['category'].split(',') # if that category exist split it into a list at the commas.
+            products = products.filter(category__name__in=categories) # And then use that list to filter the current query set of all products down to only products whose category name is in the list.
+
+        """Handling the search query"""
         if 'q' in request.GET: # remember the 'q' is the name in our input form in base.html
             query = request.GET['q']
             if not query:
