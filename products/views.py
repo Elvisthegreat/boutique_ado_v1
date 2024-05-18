@@ -9,6 +9,7 @@ def all_products(request):
     """ A view to show all products, including sorting and search queries """
 
     products = Product.objects.all()
+    # making sure the variables are defined for it to  work properly
     query = None
     categories = None
     sort = None
@@ -16,18 +17,18 @@ def all_products(request):
 
     if request.GET:
 
-        """For sorting products"""
-        if 'sort' in request.GET:
+        """For sorting products and the direction"""
+        if 'sort' in request.GET: # checking if 'sort' is there
             sortkey = request.GET['sort']
-            sort = sortkey
+            sort = sortkey # setting sort defined to None to sortkey
             if sortkey == 'name':
                 sortkey = 'lower_name'
                 products = products.annotate(lower_name=Lower('name'))
 
-            if 'direction' in request.GET:
+            if 'direction' in request.GET: # checking if 'direction' is there
                 direction = request.GET['direction']
                 if direction == 'desc':
-                    sortkey = f'-{sortkey}'
+                    sortkey = f'-{sortkey}' # check whether it's descending. And if so we'll add a minus in front of the sort key using string formatting, which will reverse the order.
             products = products.order_by(sortkey)
 
         """Handling a specific category in our main_nav.html"""
@@ -50,7 +51,7 @@ def all_products(request):
             queries = Q(name__icontains=query) | Q(description__icontains=query)
             products = products.filter(queries)
 
-    current_sorting = f'{sort}_{direction}'
+    current_sorting = f'{sort}_{direction}' # for sorting asc & desc
 
     context = {
         'products': products,
