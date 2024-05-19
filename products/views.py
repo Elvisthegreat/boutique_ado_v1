@@ -29,7 +29,7 @@ def all_products(request):
                 direction = request.GET['direction']
                 if direction == 'desc':
                     sortkey = f'-{sortkey}' # check whether it's descending. And if so we'll add a minus in front of the sort key using string formatting, which will reverse the order.
-            products = products.order_by(sortkey)
+            products = products.order_by(sortkey) # Finally in order to actually sort the products all we need to do is use the order by model method.
 
         """Handling a specific category in our main_nav.html"""
         if 'category' in request.GET:
@@ -51,7 +51,8 @@ def all_products(request):
             queries = Q(name__icontains=query) | Q(description__icontains=query)
             products = products.filter(queries)
 
-    current_sorting = f'{sort}_{direction}' # for sorting asc & desc
+    """for sorting asc & desc"""
+    current_sorting = f'{sort}_{direction}' # return the current sorting methodology to the template.
 
     context = {
         'products': products,
