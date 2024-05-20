@@ -36,7 +36,8 @@
                 <div class="product-details-container mb-5 mt-md-5">
                     <p class="mb-0">{{ product.name }}</p>
                     <p class="lead mb-0 text-left font-weight-bold">${{ product.price }}</p>
-                    <!--checks if a product has a category and, if so, it displays a link with the category’s friendly name.-->
+                    <!--checks if a product has a category and, if so, it displays a link with the category’s friendly name.
+                    This is that little tage below the price amount for the product-->
                     {% if product.category %}
                         <p class="small mt-1 mb-0">
                             <a class="text-muted" href="{% url 'products' %}?category={{ product.category.name }}">
