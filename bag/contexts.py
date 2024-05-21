@@ -17,7 +17,7 @@ def bag_contents(request):
         bag_items.append({
             'item_id': item_id,
             'quantity': quantity,
-            'product': product
+            'product': product,
         })
 
     if total < settings.FREE_DELIVERY_THRESHOLD: # free delivery. if they spend more than the amount specified in the free delivery threshold in settings.py.
