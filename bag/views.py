@@ -15,7 +15,7 @@ def add_to_bag(request, item_id):
     """ if product size is in request.post we'll set it equal to that. """
     size = None
     if 'product_size' in request.POST:
-        size = request.POST['size']
+        size = request.POST['product_size']
     bag = request.session.get('bag', {}) # first check to see if there's a bag variable in the session. And if not we'll create one.
 
     if size:
