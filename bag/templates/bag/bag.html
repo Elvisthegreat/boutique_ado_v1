@@ -3,7 +3,7 @@
 
 <!--page header
     to push the top of it down to the bottom of the main nav bar and site header.-->
-{% block page_header %}
+    {% block page_header %}
     <div class="container header-container">
         <div class="row">
             <div class="col"></div>
@@ -42,7 +42,7 @@
                                     <td class="p-3 w-25">
                                         <img class="img-fluid rounded" src="{{ item.product.image.url }}">
                                     </td>
-                                    <td class="p-3">
+                                    <td class="py-3">
                                         <p class="my-0"><strong>{{ item.product.name }}</strong></p>
                                         <p class="my-0 small text-muted">SKU: {{ item.product.sku|upper }}</p>
                                     </td>
