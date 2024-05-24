@@ -85,7 +85,7 @@
                                        <!--For the Update and Remove link in our bag-->
                                        <a class="update-link text-info"><small>Update</small></a>
                                     <a class="remove-item text-danger float-right" id="remove_{{ item.item_id }}"
-                                        data-size="{{ item.size }}"><small>Remove</small></a>
+                                        data-product-size="{{ item.size }}"><small>Remove</small></a>
                                     </td>
                                     <td class="py-3">
                                         <p class="my-0">${{ item.product.price }}</p>
@@ -152,11 +152,11 @@
     /* The intention here is to post some data to a URL. Which we'll create in a future video.
       And once the response comes back from the server reload the page to reflect the updated bag.*/
     $('.remove-item').click(function(e) {
-        var crsfToken = "{{ crsf_token }}";
+        var csrfToken = "{{ csrf_token }}";
         var itemId = $(this).attr('id').split('remove_')[1];
-        var size = $(this).data('size');
-        var url = `/bag/remove/$(itemId)`;
-        var data = {'csrfmiddlewaretoken': csrfToken, 'size': size};
+        var size = $(this).data('product_size');
+        var url = `/bag/remove/${itemId}/`;
+        var data = {'csrfmiddlewaretoken': csrfToken, 'product_size': size};
 
         $.post(url, data)
          .done(function() {
