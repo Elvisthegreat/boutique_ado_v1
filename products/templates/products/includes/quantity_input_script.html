@@ -24,7 +24,8 @@
 
     // Increment quantity
     $('.increment-qty').click(function(e) {
-       e.preventDefault();
+       e.preventDefault(); // prevent default button action
+       // This line finds the closest parent element with the class .input-group, then finds the child element with the class .qty_input, and gets the first DOM element in the jQuery object.
        var closestInput = $(this).closest('.input-group').find('.qty_input')[0];
        var currentValue = parseInt($(closestInput).val());
        $(closestInput).val(currentValue + 1);
