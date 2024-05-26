@@ -129,7 +129,11 @@
 
 	<!--display any messages that we send back from Django-->
 	{% if messages %}
-	    <div class="message-container"></div>
+	    <div class="message-container">
+			{% for message in messages %}
+			    {% include 'includes/toats/toast_success.html' %}
+			{% endfor %}
+		</div>
 	{% endif %}
 
 	{% block page_header %}
@@ -139,6 +143,10 @@
 	{% endblock %}
 
 	{% block postloadjs %}
+	<!--JavaScript. To call the toast method from bootstrap. With an option of show.-->
+	<script type="text/javascript">
+		$('.toast').toast('show');
+	</script>
 	{% endblock %}
 
   </body>
