@@ -12,7 +12,7 @@ def view_bag(request):
 def add_to_bag(request, item_id):
     """ Add a quantity of the specified product to the shopping bag """
 
-    product = Product.objects.get(pk=item_id)
+    product = Product.objects.get(pk=item_id) # get the product at the top of the view here. And then use the messages dot success function.
     quantity = int(request.POST.get('quantity')) # get the quantity from the form. and convert it to an integer since it'll come from the template as a string.
     redirect_url = request.POST.get('redirect_url') # redirect_url found in our form
 
@@ -39,7 +39,7 @@ def add_to_bag(request, item_id):
             bag[item_id] += quantity # Or update the quantity if it already exists.
         else:
             bag[item_id] = quantity # Add the item to the bag
-            messages.success(request, f'Added {product.name} to your bag')
+            messages.success(request, f'Added {product.name} to your bag') # success messages
 
     request.session['bag'] = bag
     return redirect(redirect_url)
