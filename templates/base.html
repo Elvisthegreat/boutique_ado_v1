@@ -127,11 +127,21 @@
         </div>
 	</header>
 
-	<!--display any messages that we send back from Django-->
+	<!--Display any messages that we send back from Django-->
 	{% if messages %}
 	    <div class="message-container">
 			{% for message in messages %}
-			    {% include 'includes/toats/toast_success.html' %}
+			    {% with message.level as level %}
+				    {% if level == 40 %} <!--Level 40 is Error-->
+					    {% include 'includes/toasts/toast_error.html' %}
+					{% elif level == 30 %} <!--Level 30 is Warning-->
+					    {% include 'includes/toasts/toast_warning.html' %}
+					{% elif level == 25 %} <!--Level 25 is Success-->
+					    {% include 'includes/toasts/toast_success.html' %}
+					{% else %} <!--Alert-->
+					    {% include 'includes/toasts/toast_info.html' %}
+					{% endif %}
+				{% endwith %}
 			{% endfor %}
 		</div>
 	{% endif %}
