@@ -16,6 +16,7 @@ class OrderForm(forms.ModelForm):
         labels and set autofocus on first field
         """
         super().__init__(*args, **kwargs)
+        # placeholder to display on fields
         placeholders = {
             'full_name': 'Full Name',
             'email': 'Email Address',
