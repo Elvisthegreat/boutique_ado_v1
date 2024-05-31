@@ -5,11 +5,12 @@ from django.conf import settings
 from .forms import OrderForm
 from bag.contexts import bag_contents
 
-import stripe
+import stripe # imported stripe
 
 # Create your views here.
 
 def checkout(request):
+    # Payment intent
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
 
@@ -29,6 +30,7 @@ def checkout(request):
     )
 
     order_form = OrderForm()
+
     if not stripe_public_key:
         messages.warning(request, 'Stripe public key is missing. \
             Did you forget to set it in your environment?')
