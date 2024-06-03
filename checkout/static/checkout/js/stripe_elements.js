@@ -62,8 +62,8 @@ form.addEventListener('submit', function(ev) {
     card.update({ 'disabled': true});
     $('#submit-button').attr('disabled', true);
     // fade out the form when the user clicks the submit button and reverse that if there's any error.
-    $('#payment-form').fadeToggle(100);
-    $('#loading-overlay').fadeToggle(100);
+    $('#payment-form').fadeToggle(100); // fade out
+    $('#loading-overlay').fadeToggle(100); // fade out
     stripe.confirmCardPayment(clientSecret, {
         payment_method: {
             card: card,
@@ -77,8 +77,8 @@ form.addEventListener('submit', function(ev) {
                 </span>
                 <span>${result.error.message}</span>`;
             $(errorDiv).html(html);
-            $('#payment-form').fadeToggle(100);
-            $('#loading-overlay').fadeToggle(100);
+            $('#payment-form').fadeToggle(100); // fade out
+            $('#loading-overlay').fadeToggle(100); // fade out
             /** Of course, if there's an error.
                 We'll also want to re-enable the card element and the submit button to allow the user to fix it. */
             card.update({ 'disabled': false});
