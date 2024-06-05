@@ -65,6 +65,11 @@ form.addEventListener('submit', function(ev) {
     $('#payment-form').fadeToggle(100); // fade out
     $('#loading-overlay').fadeToggle(100); // fade out and trigger the loading overlay
 
+    /**
+     * Then we create a few variables to capture the form data we can't put in
+        the payment intent here, and instead post it to the cache_checkout_data view function
+     */
+
     // Get the boolean value of the saved info box
     var saveInfo = Boolean($('#id-save-info').attr('checked'));
     // From using {% csrf_token %} in the form
@@ -76,7 +81,7 @@ form.addEventListener('submit', function(ev) {
     };
     var url = '/checkout/cache_checkout_data/';
 
-    $.post(url, postData).done(function() {
+    $.post(url, postData).done(function() { // Here is where the posting to cache_checkout_data view is happening
         stripe.confirmCardPayment(clientSecret, {
             payment_method: {
                 card: card,
@@ -115,8 +120,12 @@ form.addEventListener('submit', function(ev) {
                     </span>
                     <span>${result.error.message}</span>`;
                 $(errorDiv).html(html);
-                $('#payment-form').fadeToggle(100); // fade out
-                $('#loading-overlay').fadeToggle(100); // fade out
+                /**
+                 * If there's an error in the form then the loading overlay will
+                    be hidden the card element re-enabled and the error displayed for the user from the errorDiv above.
+                 */
+                $('#payment-form').fadeToggle(100);
+                $('#loading-overlay').fadeToggle(100);
                 /** Of course, if there's an error.
                     We'll also want to re-enable the card element and the submit button to allow the user to fix it. */
                 card.update({ 'disabled': false});
@@ -130,8 +139,10 @@ form.addEventListener('submit', function(ev) {
 
         /**
          * Attaching a failure function, which will be triggered
-        if our view sends a 400 bad request response. And in that case, we'll just
-        reload the page to show the user the error message from the view.
+           if our view sends a 400 bad request response. And in that case, we'll just
+           reload the page to show the user the error message from the view.
+           If anything goes wrong posting the data to our view. We'll reload the page and
+           display the error without ever charging the user.
          */
     }).fail(function() {
         // just reload the page, the error will be in django messages
