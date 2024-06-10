@@ -132,7 +132,7 @@
 
 	<!--Display any messages that we send back from Django-->
 	{% if messages %}
-	    <div class="message-container">
+	    <div class="message-container" id="disappear-notification">
 			{% for message in messages %}
 			    {% with message.level as level %}
 				    {% if level == 40 %} <!--Level 40 is Error-->
@@ -159,6 +159,15 @@
 	<!--JavaScript. To call the toast method from bootstrap. With an option of show.-->
 	<script type="text/javascript">
 		$('.toast').toast('show');
+	</script>
+    
+	<!--Remove success message after 4 seconds-->
+	<script>
+		disappearNotification = document.getElementById('disappear-notification');
+		// Hide the success message after 4 seconds
+		setTimeout( function(){
+			disappearNotification.style.display = "none";
+		}, 4000) // 4000 milliseconds = 4 seconds
 	</script>
 	{% endblock %}
 
