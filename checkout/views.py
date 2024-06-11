@@ -165,12 +165,12 @@ def checkout_success(request, order_number):
      
      # Only if user is authenticated
     if request.user.is_authenticated:
-        profile = UserProfile.objects.get(user=request.user) # We've already got the order so to add the profile we just have to check if the user is authenticated because if so they'll have a profile that was created when they created their account.
+        profile = UserProfile.objects.get(user=request.user) # If authenticated, it retrieves the user’s profile associated with their account.
         # Attach the user's profile to the order
-        order.user_profile = profile
+        order.user_profile = profile # The retrieved profile is then attached to an order, and the order is saved.
         order.save()
 
-        # Save the user's info
+        # Save the user's info. If the save_info flag is true, it saves the user’s information from the order into their profile for future use.
         if save_info:
             profile_data = {
                 'default_phone_number': order.phone_number,
@@ -184,7 +184,6 @@ def checkout_success(request, order_number):
             user_profile_form = UserProfileForm(profile_data, instance=profile)
             if user_profile_form.is_valid():
                 user_profile_form.save()
-                #  End if statement
 
     messages.success(request, f'Order successfully processed! \
         Your order number is {order_number}. A confirmation \
