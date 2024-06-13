@@ -87,9 +87,9 @@ def add_product(request):
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES) # instance of the product form from request.post and include request .files also In order to make sure to capture in the image of the product if one was submitted.
         if form.is_valid():
-            form.save()
+            product = form.save()
             messages.success(request, 'Successfully added product!')
-            return redirect(reverse('add_product'))
+            return redirect(reverse('product_detail', args=[product.id])) # Redirect to that products detail page after adding it
         else:
             messages.error(request, 'Failed to add product. Please ensure the form is valid.')
     else:
@@ -102,15 +102,15 @@ def add_product(request):
 
     return render(request, templates, context)
 
-def edit_product(request, product_id):
+def edit_product(request, product_id): # Taken the request and the product ID which the user is going to edit
     """Edit a product in a store"""
     product = get_object_or_404(Product, pk=product_id)
     if request.method == 'POST':
-        form = ProductForm(request.POST, request.FILES, instance=product)
+        form = ProductForm(request.POST, request.FILES, instance=product) # instance=product. This means that if the form is valid, it will update the existing product rather than creating a new one.
         if form.is_valid():
             form.save()
             messages.success(request, 'Successfully updated product!')
-            return redirect(reverse('product_detail', args=[product.id]))
+            return redirect(reverse('product_detail', args=[product.id])) # Redirect to the product detail page using the product id
         else:
             messages.error(request, 'Failed to update product. Please ensure the form is valid.')
     else:
@@ -124,3 +124,12 @@ def edit_product(request, product_id):
     }
 
     return render(request, templates, context)
+
+
+def delete_product(request, product_id):
+    """Delete a product from the store"""
+    product = get_object_or_404(Product, pk=product_id)
+    product.delete()
+    messages.success(request, 'Product deleted!')
+
+    return redirect(reverse('products'))
