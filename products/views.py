@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q # To generate a search query
 from django.db.models.functions import Lower
 
@@ -82,14 +83,19 @@ def product_detail(request, product_id):
     return render(request, 'products/product_detail.html', context)
 
 
+@login_required
 def add_product(request):
     """Add Product to the store"""
+    if not request.user.is_superuser:
+        messages.error(request, 'Sorry only store owners can do that!')
+        return redirect(reverse('home'))
+
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES) # instance of the product form from request.post and include request .files also In order to make sure to capture in the image of the product if one was submitted.
         if form.is_valid():
-            product = form.save()
+            product = form.save() # instead form . save directly we installed it to a variable so we can redirect to added product detail page
             messages.success(request, 'Successfully added product!')
-            return redirect(reverse('product_detail', args=[product.id])) # Redirect to that products detail page after adding it
+            return redirect(reverse('product_detail', args=[product.id])) # Redirect to that products added detail page after adding it
         else:
             messages.error(request, 'Failed to add product. Please ensure the form is valid.')
     else:
@@ -102,8 +108,13 @@ def add_product(request):
 
     return render(request, templates, context)
 
+@login_required
 def edit_product(request, product_id): # Taken the request and the product ID which the user is going to edit
     """Edit a product in a store"""
+    if not request.user.is_superuser:
+        messages.error(request, 'Sorry only store owners can do that!')
+        return redirect(reverse('home'))
+
     product = get_object_or_404(Product, pk=product_id)
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES, instance=product) # instance=product. This means that if the form is valid, it will update the existing product rather than creating a new one.
@@ -126,8 +137,13 @@ def edit_product(request, product_id): # Taken the request and the product ID wh
     return render(request, templates, context)
 
 
+@login_required
 def delete_product(request, product_id):
     """Delete a product from the store"""
+    if not request.user.is_superuser:
+        messages.error(request, 'Sorry only store owners can do that!')
+        return redirect(reverse('home'))
+
     product = get_object_or_404(Product, pk=product_id)
     product.delete()
     messages.success(request, 'Product deleted!')
