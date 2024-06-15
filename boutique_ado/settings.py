@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
 if os.path.exists("env.py"):
   import env 
 
@@ -29,7 +30,7 @@ SECRET_KEY = 'django-insecure-&l&njlj*qq!aqv$hbx94k$bcc43-c0gbf@s_p2xrlmb%y&89__
 DEBUG = True
 #'DEBUG' in os.environ
 
-ALLOWED_HOSTS = ['8000-elvisthegre-boutiqueado-pztiygkg456.ws-eu114.gitpod.io']
+ALLOWED_HOSTS = ['8000-elvisthegre-boutiqueado-pztiygkg456.ws-eu114.gitpod.io', 'herokuapp.com', 'localhost']
 
 
 # Application definition
@@ -126,12 +127,28 @@ WSGI_APPLICATION = 'boutique_ado.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+# DATABASES = {
+#      'default': dj_database_url.parse('postgres://vnwygpxg:vVL2AnKBPj7DGb2TSJRsmHmFv8EuXyLw@kandula.db.elephantsql.com/vnwygpxg')
+#  }
+
+if 'DATABASE_URL' in os.environ:
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
 
 
 # Password validation
