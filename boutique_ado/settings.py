@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-&l&njlj*qq!aqv$hbx94k$bcc43-c0gbf@s_p2xrlmb%y&89__
 DEBUG = True
 #'DEBUG' in os.environ
 
-ALLOWED_HOSTS = ['8000-elvisthegre-boutiqueado-pztiygkg456.ws-eu114.gitpod.io', 'herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['8000-elvisthegre-boutiqueado-pztiygkg456.ws-eu114.gitpod.io', 'boutique-ado-walkthrougproject.herokuapp.com', 'localhost']
 
 
 # Application definition
