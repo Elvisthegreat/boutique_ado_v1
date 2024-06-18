@@ -29,9 +29,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY', '')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'DEVELOPMENT' in os.environ
-#'DEBUG' in os.environ
 
-ALLOWED_HOSTS = ['8000-elvisthegre-boutiqueado-pztiygkg456.ws-eu114.gitpod.io', 'boutique-ado-walkthrougproject.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['8000-elvisthegre-boutiqueado-pztiygkg456.ws-eu114.gitpod.io', 'boutique-ado-walkthrougproject-4fa88fb1c5cb.herokuapp.com', 'localhost']
 
 
 # Application definition
@@ -203,7 +202,8 @@ if 'USE_AWS' in os.environ:
     AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
     AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
 
-
+    
+    #Tell django that in production we want to use s3 to store our static files
     # Static and media files
     STATICFILES_STORAGE = 'custom_storages.StaticStorage'
     STATICFILES_LOCATION = 'static'
