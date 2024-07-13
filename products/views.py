@@ -13,7 +13,7 @@ def all_products(request):
     """ A view to show all products, including sorting and search queries """
 
     products = Product.objects.all()
-    # making sure the variables are defined for it to  work properly
+    # making sure the variables are defined for it to work properly
     query = None
     categories = None
     sort = None
@@ -40,7 +40,7 @@ def all_products(request):
 
         """Handling a specific category in our main_nav.html"""
         if 'category' in request.GET:
-            categories = request.GET['category'].split(',') # if that category exist split it into a list at the commas.
+            categories = request.GET['category'].split(',') # if that category exist split it into a string list and with commas.
             products = products.filter(category__name__in=categories) # And then use that list to filter the current query set of all products down to only products whose category name is in the list.
             categories = Category.objects.filter(name__in=categories) # display for the user which categories they currently have selected.
 

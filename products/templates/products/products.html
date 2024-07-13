@@ -25,6 +25,7 @@
                 <hr class="w-50 mb-1">
             </div>
         </div>
+        
         <div class="row">
             <div class="product-container col-10 offset-1">
                 <div class="row mt-1 mb-2">
@@ -166,7 +167,12 @@
             if(selectedVal != "reset"){
                 var sort = selectedVal.split("_")[0];
                 var direction = selectedVal.split("_")[1];
-
+                /**
+                 * This line sets the value of the sort query parameter
+                 *  to the value stored in the sort variable. If the sort parameter already
+                 *  exists in the URL, its value will be updated; if it doesn’t exist, 
+                 * it will be added.
+                */
                 currentUrl.searchParams.set("sort", sort);
                 currentUrl.searchParams.set("direction", direction);
 

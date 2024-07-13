@@ -14,7 +14,7 @@ def add_to_bag(request, item_id):
 
     product = get_object_or_404(Product, pk=item_id) # get the product at the top of the view here. And then use the messages dot success function.
     quantity = int(request.POST.get('quantity')) # get the quantity from the form. and convert it to an integer since it'll come from the template as a string.
-    redirect_url = request.POST.get('redirect_url') # redirect_url found in our form
+    redirect_url = request.POST.get('redirect_url') # redirect_url found in our form product_detail
 
     """ if product size is in request.post we'll set it equal to that. """
     size = None
