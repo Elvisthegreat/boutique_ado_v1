@@ -107,7 +107,6 @@ def checkout(request):
             mesages.error(request, 'There is nothing in your bag at the moment')
             return redirect(reverse('products'))
         
-
         current_bag = bag_contents(request)
         total = current_bag['grand_total']
         stripe_total = round(total * 100)
