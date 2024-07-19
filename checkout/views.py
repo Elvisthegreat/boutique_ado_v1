@@ -32,8 +32,6 @@ def cache_checkout_data(request):
         return HttpResponse(content=e, status=400)
 
 
-
-
 def checkout(request):
     # Payment intent
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
